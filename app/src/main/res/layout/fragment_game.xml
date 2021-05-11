@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="gameViewModel"
+            type="com.nithesh.tapgame.game.GameViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/welcome_text_view"
+            style="?textAppearanceHeadline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/welcome_text(gameViewModel.userName)}"
+            app:layout_constraintBottom_toTopOf="@id/timer_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="welcome to the game" />
+
+        <TextView
+            android:id="@+id/timer_text_view"
+            style="?textAppearanceHeadline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{gameViewModel.timeString}"
+            app:layout_constraintBottom_toTopOf="@id/score_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome_text_view"
+            tools:text="00:30" />
+
+        <TextView
+            android:id="@+id/score_text_view"
+            style="?textAppearanceHeadline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(gameViewModel.score)}"
+            app:layout_constraintBottom_toTopOf="@id/tap_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/timer_text_view"
+            tools:text="0" />
+
+        <Button
+            android:id="@+id/tap_button"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:onClick="@{()->gameViewModel.increaseScore()}"
+            android:text="@{gameViewModel.buttonName}"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/score_text_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TapGame</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="welcome_to_tap_game">welcome to tap game</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="welcome_to_game_fragment">welcome to game fragment</string>
+    <string name="next">next</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="done">done</string>
+    <string name="welcome_text">Welcome to Tap Game, %1$s</string>
+    <string name="tap">Tap</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_score_is">Your score is : %1$d</string>
+</resources>
