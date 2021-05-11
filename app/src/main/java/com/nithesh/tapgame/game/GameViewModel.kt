@@ -3,12 +3,12 @@ package com.nithesh.tapgame.game
 import android.app.Application
 import android.os.CountDownTimer
 import android.text.format.DateUtils
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import com.nithesh.tapgame.database.GameScore
 import com.nithesh.tapgame.database.GameScoreDao
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GameViewModel(
     val userName: String,
@@ -60,6 +60,13 @@ class GameViewModel(
 
     private fun initializeNewGameScore() {
         val gameScore = GameScore(userName = userName)
+        viewModelScope.launch { insert(gameScore) }
+    }
+
+    private suspend fun insert(gameScore: GameScore) {
+        withContext(Dispatchers.IO) {
+            database.insertGame(gameScore)
+        }
     }
 
     private val miniTimer = object : CountDownTimer(MINI_COUNT_DOWN_TIME, ONE_SECOND) {
