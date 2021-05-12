@@ -35,14 +35,16 @@ class GameViewModel(
     val isGameCompleted: LiveData<Boolean>
         get() = _isGameCompleted
 
-    private lateinit var currentGameScore: GameScore
+    private var _currentGameScore = MutableLiveData<GameScore>()
+    val currentGameScore: LiveData<GameScore>
+        get() = _currentGameScore
 
     init {
         _score.value = 0
         _buttonName.value = "START"
         _isGameCompleted.value = false
-        currentGameScore = GameScore(userName = userName)
-        viewModelScope.launch { insert(currentGameScore) }
+        _currentGameScore.value = GameScore(userName = userName)
+        viewModelScope.launch { insert(currentGameScore.value!!) }
 
     }
 

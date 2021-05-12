@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.nithesh.tapgame.R
+import com.nithesh.tapgame.database.GameScoreDatabase
 import com.nithesh.tapgame.databinding.FragmentScoreBinding
 
 class ScoreFragment : Fragment() {
@@ -25,8 +26,9 @@ class ScoreFragment : Fragment() {
             container,
             false
         )
-
-        val scoreViewModelFactory = ScoreViewModelFactory(scoreArgs.score)
+        val application = requireNotNull(this.activity).application
+        val database = GameScoreDatabase.getDatabase(application).getGameScoreDao()
+        val scoreViewModelFactory = ScoreViewModelFactory(scoreArgs.score, database, application)
         val scoreViewModel = ViewModelProvider(this, scoreViewModelFactory)
             .get(ScoreViewModel::class.java)
         scoreBinding.scoreViewModel = scoreViewModel
