@@ -35,11 +35,17 @@ class GameViewModel(
     val isGameCompleted: LiveData<Boolean>
         get() = _isGameCompleted
 
+    private var _currentGameScore = MutableLiveData<GameScore>()
+    val currentGameScore: LiveData<GameScore>
+        get() = _currentGameScore
+
     init {
         _score.value = 0
         _buttonName.value = "START"
         _isGameCompleted.value = false
-        initializeNewGameScore()
+        _currentGameScore.value = GameScore(userName = userName)
+        viewModelScope.launch { insert(currentGameScore.value!!) }
+
     }
 
     fun increaseScore() {
@@ -58,16 +64,12 @@ class GameViewModel(
         _isGameCompleted.value = null
     }
 
-    private fun initializeNewGameScore() {
-        val gameScore = GameScore(userName = userName)
-        viewModelScope.launch { insert(gameScore) }
-    }
-
     private suspend fun insert(gameScore: GameScore) {
         withContext(Dispatchers.IO) {
             database.insertGame(gameScore)
         }
     }
+
 
     private val miniTimer = object : CountDownTimer(MINI_COUNT_DOWN_TIME, ONE_SECOND) {
         override fun onTick(millisUntilFinished: Long) {

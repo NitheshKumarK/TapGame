@@ -1,9 +1,11 @@
 package com.nithesh.tapgame.database
 
 import android.app.Application
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+@Database(entities = [GameScore::class], version = 1, exportSchema = false)
 abstract class GameScoreDatabase : RoomDatabase() {
 
     abstract fun getGameScoreDao(): GameScoreDao
