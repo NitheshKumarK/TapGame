@@ -21,6 +21,9 @@ interface GameScoreDao {
     @Query("Select * from game_table")
     fun getAllUsers(): LiveData<List<GameScore>>
 
+    @Query("Select * from game_table order by gameScoreId desc limit 1")
+    fun getLastUser(): GameScore?
+
     @Query("DELETE FROM game_table")
     fun deleteAllGame()
 

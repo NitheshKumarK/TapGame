@@ -17,6 +17,7 @@ class GameFragment : Fragment() {
 
     private lateinit var gameBinding: FragmentGameBinding
     private val gameArgs: GameFragmentArgs by navArgs()
+    private lateinit var gameViewModel: GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +31,7 @@ class GameFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = GameScoreDatabase.getDatabase(application).getGameScoreDao()
         val gameViewModelFactory = GameViewModelFactory(gameArgs.userName, dataSource, application)
-        val gameViewModel = ViewModelProvider(this, gameViewModelFactory)
+        gameViewModel = ViewModelProvider(this, gameViewModelFactory)
             .get(GameViewModel::class.java)
         gameViewModel.isGameCompleted.observe(viewLifecycleOwner, {
             if (it == true) {
@@ -47,4 +48,5 @@ class GameFragment : Fragment() {
 
         return gameBinding.root
     }
+
 }
