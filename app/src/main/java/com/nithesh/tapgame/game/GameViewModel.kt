@@ -52,6 +52,7 @@ class GameViewModel(
         if (_buttonName.value.equals("TAP")) {
             _score.value = _score.value!!.plus(1)
         } else {
+
             miniTimer.start()
         }
     }
